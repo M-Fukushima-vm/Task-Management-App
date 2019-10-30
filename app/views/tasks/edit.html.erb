@@ -1,0 +1,20 @@
+<h1>タスク編集</h1>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <!--<form action="/users/1/tasks/277" accept-charset="UTF-8" method="post">-->
+    <%= form_with(model: @task, url: tasks_update_path, local: true) do |f| %>
+      <%= f.label "名称", class: "label-form" %>
+      <%= f.text_field :title, value: @tasks.title, class: "form-control" %>
+  
+      <%= f.label "詳細", class: "label-form" %>
+      <%= f.text_area :detail, value: @tasks.detail, class: "form-control",rows: 5 %>
+    
+      <%= f.submit "更新", class: "btn btn-primary btn-form" %>
+      <%= link_to "キャンセル", tasks_index_path(@tasks.user_id), class: "btn btn-default btn-form" %>
+      
+    <% end %>
+    </form>
+  </div>
+</div>
+      

@@ -1,4 +1,9 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+         <script>
+           $('.dropdown-toggle').dropdown()
+         </script>
   <div class="container">
     <%= link_to "Task App", root_path, id: "logo" %>
     <nav>
@@ -6,15 +11,19 @@
         <li><%= link_to "トップ", root_path %></li>
         <% if logged_in? %>
           <li><%= link_to "利用者一覧", users_path %></li>
+          <li><%= link_to "タスク作成", tasks_new_path(current_user) %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <%= yield :title %><b class="caret"></b>
+              <%= current_user.name %><b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Show", current_user %></li>
-              <li><%= link_to "Settings", '#' %></li>
+              <li class="dropdown-header">ユーザー</li>
+              <li><%= link_to "プロフィール", current_user %></li>
+              <li><%= link_to "設定", '#' %></li>
+              <li class="dropdown-header">タスク</li>
+              <li><%= link_to "タスク一覧", tasks_index_path(current_user) %></li>
               <li class="divider"></li>
-              <li><%= link_to "Log out", logout_path, method: :delete %></li>
+              <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
             </ul>
           </li>
         <% else %>

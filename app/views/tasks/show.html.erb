@@ -1,0 +1,37 @@
+<h1>タスク詳細</h1>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <table class="table table-bordered" id="table-task">
+      <tbody>
+        <tr>
+          <th class="active col-md-2">ID</th>
+          <td class="col-md-10"><%= @tasks.id %></td>
+        </tr>
+        <tr>
+          <th class="active">名称</th>
+          <td><%= @tasks.title %></td>
+        </tr>
+        <tr>
+          <th class="active">詳細</th>
+          <td><%= @tasks.detail %></td>
+        </tr>
+        <tr>
+          <th class="active">作成日</th>
+          <td><%= simple_time(@tasks.created_at) %></td>
+        </tr>
+        <tr>
+          <th class="active">更新日</th>
+          <td><%= simple_time(@tasks.updated_at) %></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div>
+      <!--<a class="btn btn-lg btn-success" href="/users/1/tasks/277/edit">編集</a>-->
+      <%= link_to "編集", tasks_edit_path(@tasks.user_id, @tasks.id), class: "btn btn-lg btn-success" %>
+      <!--<a data-confirm="「ta@」を削除します。よろしいですか？" class="btn btn-lg btn-danger" rel="nofollow" data-method="delete" href="/users/1/tasks/277">削除</a>-->
+      <%= link_to "削除", tasks_destroy_path(@tasks.user_id, @tasks.id), method: :post, class: "btn btn-lg btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
+    </div>
+  </div>    
+</div>

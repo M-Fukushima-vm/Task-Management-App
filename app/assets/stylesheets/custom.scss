@@ -33,7 +33,26 @@ textarea {
   font-weight: 200;
 }
 
+#top-main-title {
+  font-style: italic;
+  font-weight: bold;
+}
 
+.label-form {
+  margin-top: 5px;
+}
+
+.btn-form {
+  margin-top: 10px;
+}
+
+#table-tasks td {
+  vertical-align: middle;
+}
+
+#task-name {
+  font-size: 1.8rem;
+}
 
 /* タイポグラフィ */
 
@@ -61,12 +80,6 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
-
-#top-main-title {
-  font-style: italic;
-  font-weight: bold;
-}
-
 
 /* ヘッダー */
 
@@ -98,6 +111,21 @@ p {
 
 .navbar-inverse .navbar-nav > li > a:hover {
   color: silver;
+}
+
+.navbar-nav > .dropdown.open > a.dropdown-toggle {
+  background-color: #008080;
+}
+
+li.dropdown-header {
+  background-color: rgba(200,200,200,0.5);
+  font-weight: bold;
+}
+
+.dropdown-header {
+  padding: 3px,20px;
+  font-size: 12px;
+  color: #777777;
 }
 
 
