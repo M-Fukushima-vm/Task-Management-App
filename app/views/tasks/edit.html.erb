@@ -4,6 +4,8 @@
   <div class="col-md-8 col-md-offset-2">
     <!--<form action="/users/1/tasks/277" accept-charset="UTF-8" method="post">-->
     <%= form_with(model: @task, url: tasks_update_path, local: true) do |f| %>
+      <%= render 'shared/error_messages' %>
+      
       <%= f.label "名称", class: "label-form" %>
       <%= f.text_field :title, value: @tasks.title, class: "form-control" %>
   

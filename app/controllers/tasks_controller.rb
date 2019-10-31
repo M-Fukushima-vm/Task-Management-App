@@ -33,8 +33,13 @@ class TasksController < ApplicationController
     @tasks = Task.find(params[:id])
     @tasks.title = params[:title]
     @tasks.detail = params[:detail]
-    @tasks.save
-    redirect_to tasks_index_url
+    if @tasks.save
+      flash[:success] = "タスクを更新しました"
+      redirect_to tasks_show_url
+    else
+      render :edit
+    end
+    
   end
   
   def destroy
