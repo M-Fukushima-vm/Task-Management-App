@@ -7,7 +7,7 @@
 
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      <a class="btn btn-lg btn-primary pull-right" href="<%= tasks_new_path %>">タスク新規作成</a>
+      <a class="btn btn-lg btn-primary pull-right" href="<%= new_user_task_path %>">タスク新規作成</a>
       <table class="table table-hover" id="table-tasks">
         <thead>
           <tr>
@@ -18,16 +18,16 @@
         </thead>
 
         <tbody>
-          <% @tasks.each do |task| %>
+          <% current_user.tasks.order(created_at: :desc).each do |task| %>
             <tr>
             
-              <td><%= link_to task.title, tasks_show_path(id: task.id), id: "task-name"%></td>
+              <td><%= link_to task.title, user_task_path(id: task.id), id: "task-name"%></td>
               <td><%= simple_time(task.created_at) %></td>
               <td>
                 <!--<a class="btn btn-success" href="">編集</a>-->
-                <%= link_to "編集", tasks_edit_path(task.user_id, task.id), class: "btn btn-success" %>
+                <%= link_to "編集", edit_user_task_path(task.user_id, task.id), class: "btn btn-success" %>
                 <!--<a data-confirm="「」を削除します。よろしいですか？" class="btn btn-danger" rel="nofollow" data-method="delete" href="">削除</a>-->
-                <%= link_to "削除", tasks_destroy_path(task.user_id, task.id), method: :post, class: "btn btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
+                <%= link_to "削除", user_task_path(task.user_id, task.id), method: :post, class: "btn btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
               </td>
             </tr>
           <% end %>

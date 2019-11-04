@@ -1,5 +1,7 @@
 <% provide(:title, "Top") %>
-      
+<% provide(:class_text, 'form') %>
+<% provide(:button_text, 'ログイン') %>
+
 <div class="row">
   
   <div class="col-md-7">
@@ -31,6 +33,7 @@
           <span>ログイン情報を記憶する</span>
         </label>        
         <input type="submit" name="commit" value="ログイン" class="btn btn-primary btn-block btn-form" data-disable-with="ログイン">
+        <!--%= link_to yield(:button_text), users_show_path(params[:id]), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>-->
     </form>
   </div>
 </div>

@@ -1,25 +1,26 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @users.name) %>
 
 <h1>プロフィール</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <%= render 'shared/users_error_messages' %>
     <table class="table table-bordered" id="table-user">
       <tr>
         <th class="active col-md-3">ID</th>
-        <td class="col-md-9"><%= @user.id %></td>
+        <td class="col-md-9"><%= @users.id %></td>
       </tr>
       <tr>
         <th class="active">名前</th>
-        <td><%= @user.name %></td>
+        <td><%= @users.name %></td>
       </tr>
       <tr>
         <th class="active">メールアドレス</th>
-        <td><%= @user.email %></td>
+        <td><%= @users.email %></td>
       </tr>
       <tr>
         <th class="active">作成日</th>
-        <td><%= simple_time(@user.created_at) %></td>
+        <td><%= simple_time(@users.created_at) %></td>
       </tr>
     </table>
   </div>    
