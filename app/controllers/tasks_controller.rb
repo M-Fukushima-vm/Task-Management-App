@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
-  before_action:set_user, only:[:create,]
-  protect_from_forgery except: :create
+  # before_action:set_user, only:[:create]
+  # protect_from_forgery except: :create
+  before_action :logged_in_user
+  before_action :correct_user
   
   def new
     @tasks = Task.new
@@ -8,7 +10,6 @@ class TasksController < ApplicationController
   
   def create
     @tasks = Task.new(task_params)
-    @tasks.user_id = @users.id
     if @tasks.save
       flash.now[:success] = "タスクを新規作成しました"
       redirect_to user_tasks_url
@@ -19,6 +20,7 @@ class TasksController < ApplicationController
   
   def index
     @tasks = Task.order(created_at: :desc)
+    
   end
   
   def show
@@ -57,4 +59,19 @@ class TasksController < ApplicationController
   def task_params
     params.permit(:title, :detail, :user_id)
   end
+  
+  def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "ログインしてください。"
+        redirect_to login_url
+      end
+  end
+    
+  def correct_user
+    @user = User.find(params[:user_id])
+    redirect_to(root_url) unless current_user?(@user)
+    # flash[:danger] = "編集権限がありません。"
+  end
+  
 end

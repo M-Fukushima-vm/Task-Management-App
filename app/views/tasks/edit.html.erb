@@ -2,8 +2,7 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <!--<form action="/users/1/tasks/277" accept-charset="UTF-8" method="post">-->
-    <%= form_with(model: @task, url: user_task_path, local: true) do |f| %>
+    <%= form_with(model: @task, url: user_task_path, local: true, method: :patch) do |f| %>
       <%= render 'shared/tasks_error_messages' %>
       
       <%= f.label "名称", class: "label-form" %>
@@ -14,9 +13,7 @@
     
       <%= f.submit "更新", class: "btn btn-primary btn-form" %>
       <%= link_to "キャンセル", user_tasks_path(@tasks.user_id), class: "btn btn-default btn-form" %>
-      
     <% end %>
-    </form>
   </div>
 </div>
       

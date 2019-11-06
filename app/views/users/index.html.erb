@@ -14,17 +14,17 @@
       <tr>
         <td>
           <a><%= link_to user.name, user_path(user.id) %></a>
-          <% if current_user.admin? && !current_user?(user) %>
-            <span class="label label-success label-user-division"> <%= "一般" %></span>
-          <% else %>
+          <% if user.admin? %>
             <span class="label label-primary label-user-division"> <%= "管理者" %></span>
+          <% else %>
+            <span class="label label-success label-user-division"> <%= "一般" %></span>
           <% end %>
         </td>
         <td>
           <% if current_user.admin? && !current_user?(user) %>
             <%= link_to "削除", user, method: :delete,
                 data: { confirm: "削除してよろしいですか？" },
-                class: "btn btn-danger" %>
+                class: "btn btn-danger btn-sm pull-right" %>
           <% end %>
         </td>
       </tr>

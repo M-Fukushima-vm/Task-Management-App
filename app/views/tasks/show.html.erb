@@ -33,7 +33,7 @@
       <!--<a class="btn btn-lg btn-success" href="/users/1/tasks/277/edit">編集</a>-->
       <%= link_to "編集", edit_user_task_path(@tasks.user_id, @tasks.id), class: "btn btn-lg btn-success" %>
       <!--<a data-confirm="「ta@」を削除します。よろしいですか？" class="btn btn-lg btn-danger" rel="nofollow" data-method="delete" href="/users/1/tasks/277">削除</a>-->
-      <%= link_to "削除", user_task_path(@tasks.user_id, @tasks.id), method: :post, class: "btn btn-lg btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
+      <%= link_to "削除", user_task_path(@tasks.user_id, @tasks.id), method: :delete, class: "btn btn-lg btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
     </div>
   </div>    
 </div>

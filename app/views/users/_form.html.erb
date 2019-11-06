@@ -1,16 +1,16 @@
 <%= form_with(model: @user, local: true) do |f| %>
   <%= render 'shared/users_error_messages' %>
       
-  <%= f.label :name, class: "label-#{yield(:class_text)}" %>
+  <%= f.label :name, "名前", class: "label-#{yield(:class_text)}" %>
   <%= f.text_field :name, value: @users.name, class: "form-control" %>
 
-  <%= f.label :email, class: "label-#{yield(:class_text)}" %>
+  <%= f.label :email, "メールアドレス", class: "label-#{yield(:class_text)}" %>
   <%= f.email_field :email, value: @users.email, class: "form-control" %>
 
-  <%= f.label :password, class: "label-#{yield(:class_text)}" %>
+  <%= f.label :password, "パスワード", class: "label-#{yield(:class_text)}" %>
   <%= f.password_field :password, class: "form-control" %>
 
-  <%= f.label :password_confirmation, class: "label-#{yield(:class_text)}" %>
+  <%= f.label :password_confirmation, "パスワード再入力", class: "label-#{yield(:class_text)}" %>
   <%= f.password_field :password_confirmation, class: "form-control" %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
