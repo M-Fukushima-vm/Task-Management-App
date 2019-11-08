@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   protect_from_forgery except: :create
+  before_action :is_login?, {only: [:new, :create]}
+
+  
   def new
   end
   
@@ -8,6 +11,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      flash[:success] = 'ログインしました。'
       redirect_back_or user
     else
       flash.now[:danger] = '認証に失敗しました。'
@@ -21,13 +25,13 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
   
-  def redirect_back_or(default_url)
-    redirect_to(session[:forwarding_url] || default_url)
-    session.delete(:forwarding_url)
-  end
-
-  def store_location
-    session[:forwarding_url] = request.original_url if request.get?
+  private
+  
+  def is_login?
+    if current_user 
+      flash[:info] = "すでにログインしています。"
+      redirect_to user_path(current_user)
+    end
   end
   
 end

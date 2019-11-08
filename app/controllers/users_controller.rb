@@ -6,23 +6,23 @@ class UsersController < ApplicationController
   before_action :admin_or_correct_user, only: [:show]
   
   def index
-    @users = User.paginate(page: params[:page], per_page: 20)
+    @user = User.paginate(page: params[:page], per_page: 20)
   end
   
   def show
-    @users = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def new
-    @users = User.new
+    @user = User.new
   end
   
   def create
-    @users = User.new(user_params)
-    if @users.save
-      log_in @users
+    @user = User.new(user_params)
+    if @user.save
+      log_in @user
       flash[:success] = '新規作成に成功しました。'
-      redirect_to users_show_path(@users.id)
+      redirect_to user_url(@user.id)
     else
       render :new
     end
@@ -33,10 +33,10 @@ class UsersController < ApplicationController
   end
   
   def update
-    @users = User.find(params[:id])
-    if @users.update_attributes(user_params)
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
       flash[:success] = "ユーザー情報を更新しました。"
-      redirect_to @users
+      redirect_to @user
     else
       render :edit
     end

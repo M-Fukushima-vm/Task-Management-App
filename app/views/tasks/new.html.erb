@@ -7,10 +7,10 @@
   <%= form_with(model: @task, url: user_tasks_path, local: true) do |f| %>
     <%= render 'shared/tasks_error_messages' %>
   
-    <%= f.label "名称", class: "label-form" %>
+    <%= f.label :title, "名称", class: "label-form" %>
     <%= f.text_field :title, class: "form-control" %>
   
-    <%= f.label "詳細", class: "label-form" %>
+    <%= f.label :detail, "詳細", class: "label-form" %>
     <%= f.text_area :detail, class: "form-control",rows: 5 %>
   
     <%= f.submit "新規登録", class: "btn btn-lg btn-primary btn-form" %>

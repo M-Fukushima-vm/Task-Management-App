@@ -2,7 +2,7 @@
 <h1>利用者一覧</h1>
 
 <div class="col-md-10 col-md-offset-1">
-  <%= will_paginate @users, :previous_label => ' &lt 前', :next_label => '次 &gt' %>
+  <%= will_paginate @user, :previous_label => ' &lt 前', :next_label => '次 &gt' %>
   <table class="table table-condensed table-hover" id="table-users">
     <thead>
       <tr>
@@ -10,7 +10,7 @@
       </tr>
     </thead>
 
-    <% @users.each do |user| %>
+    <% @user.each do |user| %>
       <tr>
         <td>
           <a><%= link_to user.name, user_path(user.id) %></a>
@@ -30,5 +30,5 @@
       </tr>
     <% end %>
   </table>
-  <%= will_paginate @users, :previous_label => ' &lt 前', :next_label => '次 &gt' %>
+  <%= will_paginate @user, :previous_label => ' &lt 前', :next_label => '次 &gt' %>
 </div>

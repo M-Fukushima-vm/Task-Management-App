@@ -27,7 +27,7 @@
                 <!--<a class="btn btn-success" href="">編集</a>-->
                 <%= link_to "編集", edit_user_task_path(task.user_id, task.id), class: "btn btn-success" %>
                 <!--<a data-confirm="「」を削除します。よろしいですか？" class="btn btn-danger" rel="nofollow" data-method="delete" href="">削除</a>-->
-                <%= link_to "削除", user_task_path(task.user_id, task.id), method: :delete, class: "btn btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
+                <%= link_to "削除", user_task_path(task.user_id, task.id), method: :delete, class: "btn btn-danger", data: {confirm: "「 #{task.title} 」 を削除します。よろしいですか？"} %>
               </td>
             </tr>
           <% end %>

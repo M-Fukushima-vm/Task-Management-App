@@ -6,13 +6,13 @@
       <%= render 'shared/tasks_error_messages' %>
       
       <%= f.label "名称", class: "label-form" %>
-      <%= f.text_field :title, value: @tasks.title, class: "form-control" %>
+      <%= f.text_field :title, value: @task.title, class: "form-control" %>
   
       <%= f.label "詳細", class: "label-form" %>
-      <%= f.text_area :detail, value: @tasks.detail, class: "form-control",rows: 5 %>
+      <%= f.text_area :detail, value: @task.detail, class: "form-control",rows: 5 %>
     
       <%= f.submit "更新", class: "btn btn-primary btn-form" %>
-      <%= link_to "キャンセル", user_tasks_path(@tasks.user_id), class: "btn btn-default btn-form" %>
+      <%= link_to "キャンセル", user_tasks_path(@task.user_id), class: "btn btn-default btn-form" %>
     <% end %>
   </div>
 </div>

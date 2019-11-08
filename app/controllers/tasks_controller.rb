@@ -5,13 +5,13 @@ class TasksController < ApplicationController
   before_action :correct_user
   
   def new
-    @tasks = Task.new
+    @task = Task.new
   end
   
   def create
-    @tasks = Task.new(task_params)
-    if @tasks.save
-      flash.now[:success] = "タスクを新規作成しました"
+    @task = current_user.tasks.new(task_params)
+    if @task.save
+      flash[:success] = "タスクを新規作成しました"
       redirect_to user_tasks_url
     else
       render :new
@@ -19,23 +19,23 @@ class TasksController < ApplicationController
   end
   
   def index
-    @tasks = Task.order(created_at: :desc)
-    
+    @tasks = current_user.tasks.order(created_at: :desc)
+    # byebug
   end
   
   def show
-    @tasks = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end  
   
   def edit
-    @tasks = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
   
   def update
-    @tasks = Task.find(params[:id])
-    @tasks.title = params[:title]
-    @tasks.detail = params[:detail]
-    if @tasks.save
+    @task = Task.find(params[:id])
+    @task.title = params[:title]
+    @task.detail = params[:detail]
+    if @task.save
       flash[:success] = "タスクを更新しました"
       redirect_to user_tasks_url
     else
@@ -45,19 +45,19 @@ class TasksController < ApplicationController
   end
   
   def destroy
-    @tasks = Task.find(params[:id])
-    @tasks.destroy
+    @task = Task.find(params[:id])
+    @task.destroy
     redirect_to user_tasks_url
   end
   
   private
   
   def set_user
-    @users = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
   end
   
   def task_params
-    params.permit(:title, :detail, :user_id)
+    params.require(:task).permit(:title, :detail, :user_id)
   end
   
   def logged_in_user
@@ -71,7 +71,6 @@ class TasksController < ApplicationController
   def correct_user
     @user = User.find(params[:user_id])
     redirect_to(root_url) unless current_user?(@user)
-    # flash[:danger] = "編集権限がありません。"
   end
   
 end

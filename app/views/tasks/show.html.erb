@@ -7,33 +7,36 @@
       <tbody>
         <tr>
           <th class="active col-md-2">ID</th>
-          <td class="col-md-10"><%= @tasks.id %></td>
+          <td class="col-md-10"><%= @task.id %></td>
         </tr>
         <tr>
           <th class="active">名称</th>
-          <td><%= @tasks.title %></td>
+          <td><%= @task.title %></td>
         </tr>
         <tr>
           <th class="active">詳細</th>
-          <td><%= @tasks.detail %></td>
+          <td>
+            <!--%= @task.detail %>-->
+            <%= simple_format(text_url_to_link(@task.detail).html_safe) %>
+          </td>
         </tr>
         <tr>
           <th class="active">作成日</th>
-          <td><%= simple_time(@tasks.created_at) %></td>
+          <td><%= simple_time(@task.created_at) %></td>
         </tr>
         <tr>
           <th class="active">更新日</th>
-          <td><%= simple_time(@tasks.updated_at) %></td>
+          <td><%= simple_time(@task.updated_at) %></td>
         </tr>
       </tbody>
     </table>
     
     <div>
-      <%= link_to "キャンセル", user_tasks_path(@tasks.user_id), class: "btn btn-lg btn-default" %>
+      <%= link_to "キャンセル", user_tasks_path(@task.user_id), class: "btn btn-lg btn-default" %>
       <!--<a class="btn btn-lg btn-success" href="/users/1/tasks/277/edit">編集</a>-->
-      <%= link_to "編集", edit_user_task_path(@tasks.user_id, @tasks.id), class: "btn btn-lg btn-success" %>
+      <%= link_to "編集", edit_user_task_path(@task.user_id, @task.id), class: "btn btn-lg btn-success" %>
       <!--<a data-confirm="「ta@」を削除します。よろしいですか？" class="btn btn-lg btn-danger" rel="nofollow" data-method="delete" href="/users/1/tasks/277">削除</a>-->
-      <%= link_to "削除", user_task_path(@tasks.user_id, @tasks.id), method: :delete, class: "btn btn-lg btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
+      <%= link_to "削除", user_task_path(@task.user_id, @task.id), method: :delete, class: "btn btn-lg btn-danger", data: {confirm: "削除します。よろしいですか？"} %>
     </div>
   </div>    
 </div>
