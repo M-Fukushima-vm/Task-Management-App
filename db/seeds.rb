@@ -6,7 +6,7 @@ User.create!( name: "Admin User",
               password_confirmation: "password",
               admin: true)
               
-User.create!( name: "Gadmin User",
+User.create!( name: "Guest Admin User",
               email: "sample-1@email.com",
               password: "password",
               password_confirmation: "password",

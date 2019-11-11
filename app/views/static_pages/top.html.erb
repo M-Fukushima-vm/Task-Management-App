@@ -9,32 +9,63 @@
       <h1 id="top-main-title">TaskApp</h1>
       <p>TaskAppは簡易ToDo管理ツールです。</p>
       <p>↓↓初めてのご利用↓↓</p>
-        <a class="btn btn-lg btn-success" href="/signup">アカウント作成</a>
-        <!--<div style="margin-top: 10px;">-->
-        <!--  <a class="btn btn-danger" href="/guest-admin/login">ゲストログイン（管理権限）</a>-->
-        <!--  <a class="btn btn-warning" href="/guest/login">ゲストログイン（一般権限）</a>-->
-        <!--</div>-->
+      
+        <% if logged_in? && current_user.admin? %>
+          <a class="btn btn-lg btn-success" href="/signup">アカウント作成</a>
+        <% elsif logged_in? %>
+          <a class="btn btn-lg btn-success disabled" href="/signup">アカウント作成</a>
+        <% else %>
+          <a class="btn btn-lg btn-success" href="/signup">アカウント作成</a>
+        <% end %>
+        
+        <!--% unless logged_in? %>-->
+          <!--<div style="margin-top: 10px;">-->
+          <!--  <a class="btn btn-danger" href="/guest-admin/login">ゲストログイン（管理権限）</a>-->
+          <!--  <a class="btn btn-warning" href="/guest/login">ゲストログイン（一般権限）</a>-->
+          <!--</div>-->
+        <!--% end %>-->
     </div>
   </div>
 
   <div class="col-md-4">
     <h1>ログイン</h1>
-    <form action="/login" accept-charset="UTF-8" method="post">
-      <input name="utf8" type="hidden" value="✓">
-      <input type="hidden" name="authenticity_token" value="rrMfIEPRhQnNxnQqEQxcfBrJ4SqMBmR1yWao7s2T1/0WQkfmNLrX2fudMbWW774Uk1rWn+Ow0W+KUskGj7peAw==">
-        <label class="label-form" for="session_email">メールアドレス</label>
-        <input class="form-control" type="email" name="session[email]">
-  
-        <label class="label-form" for="session_password">パスワード</label>
-        <input class="form-control" type="password" name="session[password]">
-        
-        <label class="checkbox inline checkbox-login" for="remember-me">
-          <input name="session[remember_me]" type="hidden" value="0"><input id="remember-me" type="checkbox" value="1" name="session[remember_me]">
+    <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+
+      <%= f.label :email, "メールアドレス", class: "label-login" %>
+      <%= f.email_field :email, readonly: logged_in?, class: 'form-control' %>
+
+      <%= f.label :password, "パスワード", class: "label-login" %>
+      <%= f.password_field :password, readonly: logged_in?, class: 'form-control' %>
+      
+      <% unless logged_in? %>
+        <%= f.label :remember_me, class: "checkbox inline checkbox-login", for: "remember-me" do %>
+          <%= f.check_box :remember_me, id: "remember-me" %>
           <span>ログイン情報を記憶する</span>
-        </label>        
-        <input type="submit" name="commit" value="ログイン" class="btn btn-primary btn-block btn-form" data-disable-with="ログイン">
-        <!--%= link_to yield(:button_text), users_show_path(params[:id]), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>-->
-    </form>
+        <% end %>
+      <% end %>
+
+      <% if logged_in? %>
+        <%= f.submit "ログイン状態です", disabled: logged_in?, class: "btn btn-primary btn-block btn-login" %>
+      <% else %>
+        <%= f.submit yield(:button_text), data: {disable_with: "ログイン中..."}, class: "btn btn-primary btn-block btn-login" %>
+      <% end %>
+        
+    <% end %>
+    <!--<form action="/login" accept-charset="UTF-8" method="post">-->
+    <!--  <input name="utf8" type="hidden" value="✓">-->
+    <!--  <input type="hidden" name="authenticity_token" value="rrMfIEPRhQnNxnQqEQxcfBrJ4SqMBmR1yWao7s2T1/0WQkfmNLrX2fudMbWW774Uk1rWn+Ow0W+KUskGj7peAw==">-->
+    <!--    <label class="label-form" for="session_email">メールアドレス</label>-->
+    <!--    <input class="form-control" type="email" name="session[email]">-->
+  
+    <!--    <label class="label-form" for="session_password">パスワード</label>-->
+    <!--    <input class="form-control" type="password" name="session[password]">-->
+        
+    <!--    <label class="checkbox inline checkbox-login" for="remember-me">-->
+    <!--      <input name="session[remember_me]" type="hidden" value="0"><input id="remember-me" type="checkbox" value="1" name="session[remember_me]">-->
+    <!--      <span>ログイン情報を記憶する</span>-->
+    <!--    </label>        -->
+    <!--    <input type="submit" name="commit" value="ログイン" class="btn btn-primary btn-block btn-form" data-disable-with="ログイン">-->
+    <!--</form>-->
   </div>
 </div>
 

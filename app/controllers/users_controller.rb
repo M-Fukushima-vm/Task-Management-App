@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :is_login?,only: [:new, :create]
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:index, :destroy]
@@ -73,7 +74,12 @@ class UsersController < ApplicationController
     end
     
     def admin_user
-      redirect_to root_url unless current_user.admin?
+      if logged_in? && current_user.admin?
+      
+      else
+        redirect_to root_url unless current_user.admin?
+        flash[:danger] = "権限がありません。"
+      end
     end
     
     def admin_or_correct_user
@@ -82,6 +88,17 @@ class UsersController < ApplicationController
         flash[:danger] = "編集権限がありません。"
         redirect_to(root_url)
       end  
+    end
+    
+    def is_login?
+      if logged_in? && current_user.admin?
+        
+      elsif logged_in?
+        flash[:info] = "すでにログインしています。"
+        redirect_to user_path(current_user)
+      else
+        
+      end
     end
     
 end

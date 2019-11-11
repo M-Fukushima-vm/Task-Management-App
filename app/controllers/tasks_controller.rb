@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
-  # before_action:set_user, only:[:create]
+  before_action :set_user
   # protect_from_forgery except: :create
   before_action :logged_in_user
-  before_action :correct_user
+  before_action :correct_user_1, only: [:new, :create]
+  before_action :correct_user_2, only: [:edit, :update]
   
   def new
     @task = Task.new
@@ -19,8 +20,7 @@ class TasksController < ApplicationController
   end
   
   def index
-    @tasks = current_user.tasks.order(created_at: :desc)
-    # byebug
+    @tasks = Task.where(params[:user_id]).order(created_at: :desc)
   end
   
   def show
@@ -33,11 +33,12 @@ class TasksController < ApplicationController
   
   def update
     @task = Task.find(params[:id])
-    @task.title = params[:title]
-    @task.detail = params[:detail]
-    if @task.save
+    # @task.title = params[:title]
+    # @task.detail = params[:detail]
+    # if @task.save
+    if @task.update_attributes(task_params)
       flash[:success] = "タスクを更新しました"
-      redirect_to user_tasks_url
+      redirect_to user_task_url
     else
       render :edit
     end
@@ -68,9 +69,28 @@ class TasksController < ApplicationController
       end
   end
     
-  def correct_user
-    @user = User.find(params[:user_id])
-    redirect_to(root_url) unless current_user?(@user)
+  def correct_user_1
+    if logged_in? &&current_user?(@user)
+      
+    # elsif logged_in?  
+    #   redirect_to(user_tasks_url(current_user))
+    #   flash.now[:danger] = "権限がありません。"
+    else
+      redirect_to(root_url)
+      flash[:danger] = "権限がありません。"
+    end
+  end
+  
+  def correct_user_2
+    if logged_in? &&current_user?(@user)
+      
+    # elsif logged_in?  
+    #   redirect_to(user_tasks_url(current_user))
+    #   flash.now[:danger] = "権限がありません。"
+    else
+      redirect_to(user_tasks_url(current_user))
+      flash[:danger] = "権限がありません。"
+    end
   end
   
 end
